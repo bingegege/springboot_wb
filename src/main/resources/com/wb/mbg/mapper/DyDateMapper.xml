@@ -1,0 +1,341 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.wb.mbg.mapper.DyDateMapper">
+  <resultMap id="BaseResultMap" type="com.wb.mbg.model.DyDate">
+    <result column="gNBID" jdbcType="INTEGER" property="gnbid" />
+    <result column="NAME" jdbcType="VARCHAR" property="name" />
+    <result column="PCI" jdbcType="INTEGER" property="pci" />
+    <result column="RSRP_UL" jdbcType="REAL" property="rsrpUl" />
+    <result column="RSRP_DL" jdbcType="REAL" property="rsrpDl" />
+    <result column="SINR_UL" jdbcType="REAL" property="sinrUl" />
+    <result column="SINR_DL" jdbcType="REAL" property="sinrDl" />
+    <result column="DELAY_REQUEST" jdbcType="INTEGER" property="delayRequest" />
+    <result column="DELAY_SUCCESS" jdbcType="INTEGER" property="delaySuccess" />
+    <result column="DELAY_FAIL" jdbcType="INTEGER" property="delayFail" />
+    <result column="DELAY" jdbcType="REAL" property="delay" />
+    <result column="NSA_REQUEST" jdbcType="INTEGER" property="nsaRequest" />
+    <result column="NSA_SUCCESS" jdbcType="INTEGER" property="nsaSuccess" />
+    <result column="NSA_FAIL" jdbcType="INTEGER" property="nsaFail" />
+    <result column="LONGITUDE" jdbcType="VARCHAR" property="longitude" />
+    <result column="LATITUDE" jdbcType="VARCHAR" property="latitude" />
+    <result column="THROUGHPUT_UL" jdbcType="INTEGER" property="throughputUl" />
+    <result column="THROUGHPUT_DL" jdbcType="INTEGER" property="throughputDl" />
+    <result column="TIME" jdbcType="TIMESTAMP" property="time" />
+  </resultMap>
+  <sql id="Example_Where_Clause">
+    <where>
+      <foreach collection="oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause">
+    <where>
+      <foreach collection="example.oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List">
+    gNBID, NAME, PCI, RSRP_UL, RSRP_DL, SINR_UL, SINR_DL, DELAY_REQUEST, DELAY_SUCCESS, 
+    DELAY_FAIL, DELAY, NSA_REQUEST, NSA_SUCCESS, NSA_FAIL, LONGITUDE, LATITUDE, THROUGHPUT_UL, 
+    THROUGHPUT_DL, TIME
+  </sql>
+  <select id="selectByExample" parameterType="com.wb.mbg.model.DyDateExample" resultMap="BaseResultMap">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from dy_date
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+  </select>
+  <delete id="deleteByExample" parameterType="com.wb.mbg.model.DyDateExample">
+    delete from dy_date
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.wb.mbg.model.DyDate">
+    insert into dy_date (gNBID, NAME, PCI, 
+      RSRP_UL, RSRP_DL, SINR_UL, SINR_DL, 
+      DELAY_REQUEST, DELAY_SUCCESS, DELAY_FAIL, 
+      DELAY, NSA_REQUEST, NSA_SUCCESS, 
+      NSA_FAIL, LONGITUDE, LATITUDE, 
+      THROUGHPUT_UL, THROUGHPUT_DL, TIME
+      )
+    values (#{gnbid,jdbcType=INTEGER}, #{name,jdbcType=VARCHAR}, #{pci,jdbcType=INTEGER}, 
+      #{rsrpUl,jdbcType=REAL}, #{rsrpDl,jdbcType=REAL}, #{sinrUl,jdbcType=REAL}, #{sinrDl,jdbcType=REAL}, 
+      #{delayRequest,jdbcType=INTEGER}, #{delaySuccess,jdbcType=INTEGER}, #{delayFail,jdbcType=INTEGER}, 
+      #{delay,jdbcType=REAL}, #{nsaRequest,jdbcType=INTEGER}, #{nsaSuccess,jdbcType=INTEGER}, 
+      #{nsaFail,jdbcType=INTEGER}, #{longitude,jdbcType=VARCHAR}, #{latitude,jdbcType=VARCHAR}, 
+      #{throughputUl,jdbcType=INTEGER}, #{throughputDl,jdbcType=INTEGER}, #{time,jdbcType=TIMESTAMP}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.wb.mbg.model.DyDate">
+    insert into dy_date
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="gnbid != null">
+        gNBID,
+      </if>
+      <if test="name != null">
+        NAME,
+      </if>
+      <if test="pci != null">
+        PCI,
+      </if>
+      <if test="rsrpUl != null">
+        RSRP_UL,
+      </if>
+      <if test="rsrpDl != null">
+        RSRP_DL,
+      </if>
+      <if test="sinrUl != null">
+        SINR_UL,
+      </if>
+      <if test="sinrDl != null">
+        SINR_DL,
+      </if>
+      <if test="delayRequest != null">
+        DELAY_REQUEST,
+      </if>
+      <if test="delaySuccess != null">
+        DELAY_SUCCESS,
+      </if>
+      <if test="delayFail != null">
+        DELAY_FAIL,
+      </if>
+      <if test="delay != null">
+        DELAY,
+      </if>
+      <if test="nsaRequest != null">
+        NSA_REQUEST,
+      </if>
+      <if test="nsaSuccess != null">
+        NSA_SUCCESS,
+      </if>
+      <if test="nsaFail != null">
+        NSA_FAIL,
+      </if>
+      <if test="longitude != null">
+        LONGITUDE,
+      </if>
+      <if test="latitude != null">
+        LATITUDE,
+      </if>
+      <if test="throughputUl != null">
+        THROUGHPUT_UL,
+      </if>
+      <if test="throughputDl != null">
+        THROUGHPUT_DL,
+      </if>
+      <if test="time != null">
+        TIME,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="gnbid != null">
+        #{gnbid,jdbcType=INTEGER},
+      </if>
+      <if test="name != null">
+        #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="pci != null">
+        #{pci,jdbcType=INTEGER},
+      </if>
+      <if test="rsrpUl != null">
+        #{rsrpUl,jdbcType=REAL},
+      </if>
+      <if test="rsrpDl != null">
+        #{rsrpDl,jdbcType=REAL},
+      </if>
+      <if test="sinrUl != null">
+        #{sinrUl,jdbcType=REAL},
+      </if>
+      <if test="sinrDl != null">
+        #{sinrDl,jdbcType=REAL},
+      </if>
+      <if test="delayRequest != null">
+        #{delayRequest,jdbcType=INTEGER},
+      </if>
+      <if test="delaySuccess != null">
+        #{delaySuccess,jdbcType=INTEGER},
+      </if>
+      <if test="delayFail != null">
+        #{delayFail,jdbcType=INTEGER},
+      </if>
+      <if test="delay != null">
+        #{delay,jdbcType=REAL},
+      </if>
+      <if test="nsaRequest != null">
+        #{nsaRequest,jdbcType=INTEGER},
+      </if>
+      <if test="nsaSuccess != null">
+        #{nsaSuccess,jdbcType=INTEGER},
+      </if>
+      <if test="nsaFail != null">
+        #{nsaFail,jdbcType=INTEGER},
+      </if>
+      <if test="longitude != null">
+        #{longitude,jdbcType=VARCHAR},
+      </if>
+      <if test="latitude != null">
+        #{latitude,jdbcType=VARCHAR},
+      </if>
+      <if test="throughputUl != null">
+        #{throughputUl,jdbcType=INTEGER},
+      </if>
+      <if test="throughputDl != null">
+        #{throughputDl,jdbcType=INTEGER},
+      </if>
+      <if test="time != null">
+        #{time,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.wb.mbg.model.DyDateExample" resultType="java.lang.Long">
+    select count(*) from dy_date
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map">
+    update dy_date
+    <set>
+      <if test="record.gnbid != null">
+        gNBID = #{record.gnbid,jdbcType=INTEGER},
+      </if>
+      <if test="record.name != null">
+        NAME = #{record.name,jdbcType=VARCHAR},
+      </if>
+      <if test="record.pci != null">
+        PCI = #{record.pci,jdbcType=INTEGER},
+      </if>
+      <if test="record.rsrpUl != null">
+        RSRP_UL = #{record.rsrpUl,jdbcType=REAL},
+      </if>
+      <if test="record.rsrpDl != null">
+        RSRP_DL = #{record.rsrpDl,jdbcType=REAL},
+      </if>
+      <if test="record.sinrUl != null">
+        SINR_UL = #{record.sinrUl,jdbcType=REAL},
+      </if>
+      <if test="record.sinrDl != null">
+        SINR_DL = #{record.sinrDl,jdbcType=REAL},
+      </if>
+      <if test="record.delayRequest != null">
+        DELAY_REQUEST = #{record.delayRequest,jdbcType=INTEGER},
+      </if>
+      <if test="record.delaySuccess != null">
+        DELAY_SUCCESS = #{record.delaySuccess,jdbcType=INTEGER},
+      </if>
+      <if test="record.delayFail != null">
+        DELAY_FAIL = #{record.delayFail,jdbcType=INTEGER},
+      </if>
+      <if test="record.delay != null">
+        DELAY = #{record.delay,jdbcType=REAL},
+      </if>
+      <if test="record.nsaRequest != null">
+        NSA_REQUEST = #{record.nsaRequest,jdbcType=INTEGER},
+      </if>
+      <if test="record.nsaSuccess != null">
+        NSA_SUCCESS = #{record.nsaSuccess,jdbcType=INTEGER},
+      </if>
+      <if test="record.nsaFail != null">
+        NSA_FAIL = #{record.nsaFail,jdbcType=INTEGER},
+      </if>
+      <if test="record.longitude != null">
+        LONGITUDE = #{record.longitude,jdbcType=VARCHAR},
+      </if>
+      <if test="record.latitude != null">
+        LATITUDE = #{record.latitude,jdbcType=VARCHAR},
+      </if>
+      <if test="record.throughputUl != null">
+        THROUGHPUT_UL = #{record.throughputUl,jdbcType=INTEGER},
+      </if>
+      <if test="record.throughputDl != null">
+        THROUGHPUT_DL = #{record.throughputDl,jdbcType=INTEGER},
+      </if>
+      <if test="record.time != null">
+        TIME = #{record.time,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map">
+    update dy_date
+    set gNBID = #{record.gnbid,jdbcType=INTEGER},
+      NAME = #{record.name,jdbcType=VARCHAR},
+      PCI = #{record.pci,jdbcType=INTEGER},
+      RSRP_UL = #{record.rsrpUl,jdbcType=REAL},
+      RSRP_DL = #{record.rsrpDl,jdbcType=REAL},
+      SINR_UL = #{record.sinrUl,jdbcType=REAL},
+      SINR_DL = #{record.sinrDl,jdbcType=REAL},
+      DELAY_REQUEST = #{record.delayRequest,jdbcType=INTEGER},
+      DELAY_SUCCESS = #{record.delaySuccess,jdbcType=INTEGER},
+      DELAY_FAIL = #{record.delayFail,jdbcType=INTEGER},
+      DELAY = #{record.delay,jdbcType=REAL},
+      NSA_REQUEST = #{record.nsaRequest,jdbcType=INTEGER},
+      NSA_SUCCESS = #{record.nsaSuccess,jdbcType=INTEGER},
+      NSA_FAIL = #{record.nsaFail,jdbcType=INTEGER},
+      LONGITUDE = #{record.longitude,jdbcType=VARCHAR},
+      LATITUDE = #{record.latitude,jdbcType=VARCHAR},
+      THROUGHPUT_UL = #{record.throughputUl,jdbcType=INTEGER},
+      THROUGHPUT_DL = #{record.throughputDl,jdbcType=INTEGER},
+      TIME = #{record.time,jdbcType=TIMESTAMP}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+</mapper>
